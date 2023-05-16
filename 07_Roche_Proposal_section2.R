@@ -173,34 +173,7 @@ for (j in 1:length(CM)){
   TableResult[j,2] <- paste0(HR," [",round(CI[1],2),"-",round(CI[2],2),"] ")
 }
 write.csv(TableResult, "P:/Project 3634/R/EKOAI/table2.3.csv")
-###### 2.3.1 ######## 2.2.1  #######
-CM <- c(colnames(Biomarker)[c(9,11,13)],colnames(RocheBiomarker)[c(8:13)])
-TableResult <- data.frame(CM)
-colnames(TableResult)[1] <- "Biomarker"
-TableResult$Survivors <- 0
-TableResult$None_Survivors <- 0
-TableResult$AUC <- 0
-TableResult$p_value <- 0
-for (j in 1:length(CM)){
-  t <- BaselineCohort[BaselineCohort$FinalDiagnosis=="HFrEF",c(CM[j],"Survivor")]
-  t_survivor <- t[t$Survivor==1,]
-  t_nonesurvivor <- t[t$Survivor==0,]
-  q <- quantile(as.double(as.character(t_survivor[,CM[j]])), probs = c(.25,.5,.75), na.rm = TRUE)
-  c <- dim(t_survivor)[1]
-  TableResult[j,2] <- paste0(round(q[2],1)," [",round(q[1],1),"-",round(q[3],1),"], ",c)
-  q <- quantile(as.double(as.character(t_nonesurvivor[,CM[j]])), probs = c(.25,.5,.75), na.rm = TRUE)
-  c <- dim(t_nonesurvivor)[1]
-  TableResult[j,3] <- paste0(round(q[2],1)," [",round(q[1],1),"-",round(q[3],1),"], ",c)
-  p <- as.double(as.character(t[,CM[j]]))
-  ROC_curve <- pROC::roc(factor(t$Survivor),log10(p))
-  A <- round(pROC::auc(ROC_curve),2)
-  CI <- ci.auc(ROC_curve)
-  cp <- cutpointr(log10(p),t$Survivor,method = maximize_metric, metric = sum_sens_spec, na.rm = TRUE)
-  ppvnpv <- coords(ROC_curve,cp$optimal_cutpoint,"threshold",ret = c("ppv","npv"))
-  cp_optimal=round(10^cp$optimal_cutpoint,2)
-  TableResult[j,4] <- paste0(A,"; (",round(CI[1],2),"-",round(CI[3],2),"); ",cp_optimal,"; ",round(ppvnpv$ppv,2),"; ",round(ppvnpv$npv,2))
-  TableResult[j,5] <- wilcox.test(as.double(as.character(t_survivor[,1])),as.double(as.character(t_nonesurvivor[,1])))$p.value
-}
+###### 2.3.1 ######
 CM <- c(colnames(Biomarker)[c(9,11,13)],colnames(RocheBiomarker)[c(8:13)])
 TableResult <- data.frame(CM)
 colnames(TableResult)[1] <- "Biomarker"

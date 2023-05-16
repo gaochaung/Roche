@@ -25,8 +25,8 @@ CN <- c("Age","Sex(female)")
 Demo_Summary <- data.frame(CN)
 colnames(Demo_Summary)[1] <- ""
 Demo_Summary$Control <- 0
-Demo_Summary$HFpEF <- 0
 Demo_Summary$HFrEF <- 0
+Demo_Summary$HFpEF <- 0
 Demo_Summary$p <- 0
 for (i in 1:3) {
   t <- subset(BaselineCohort, BaselineCohort$FinalDiagnosis == n[i])
@@ -930,7 +930,7 @@ EKOImageData <- merge(EKOImageData, EKOImageData_03032023[,c(1,6:10)], by=c("Pat
 ###################################
 BaselineCohort <- merge(BaselineCohort, EKOImageData[,c(3,7:dim(EKOImageData)[2])], by = c("PROCHI"), all.x = TRUE)
 # process the baseline information for prescribing
-n <- c("Control", "HFrEF", "HFpEF")
+n <- c("Control", "HFpEF", "HFrEF")
 CM <- colnames(EKOImageData)[7:dim(EKOImageData)[2]]
 US2AIFeatures_Summary <- data.frame(CM)
 colnames(US2AIFeatures_Summary)[1] <- "US2AIFeatures"
