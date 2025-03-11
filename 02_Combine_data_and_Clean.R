@@ -1,12 +1,12 @@
 ## clear the workspace
 rm(list = ls())
 
-install.packages("tidyverse", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("vioplot", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("rstatix", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("ggpubr", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("openxlsx", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("eeptools", repos=NULL, contriburl = "file:V:/R/3.6.2/")
+install.packages("tidyverse")
+install.packages("vioplot")
+install.packages("rstatix")
+install.packages("ggpubr")
+install.packages("openxlsx")
+install.packages("eeptools")
 library(eeptools)
 library(tidyverse)
 library(rstatix)
@@ -25,22 +25,22 @@ library(data.table)
 
 #### set the working directory and load excel #######
 # read the EKO AI image analysis results
-setwd("P:/Project 3634/3634_link-6869_08072021_MeasurementWithDates")
+setwd("D:/Project-3634/3634_link-6869_08072021_MeasurementWithDates")
 getwd()
 EKOImageData_update <- read.csv("_MeasurementsDundee_v2.csv")
 
 # read the EKO AI image analysis results update
-#setwd("P:/Project 3634/Chuang/Dundee")
+#setwd("D:/Project-3634/Chuang/Dundee")
 #getwd()
 #EKOImageData_update <- read.csv("MeasurementsDundeeJan3-v2.csv")
 
 # read the biomarkers
-setwd("P:/Project 3634/Biomarkers/Link-6859/Data hic formatted")
+setwd("D:/Project-3634/Biomarkers/Link-6859/Data hic formatted")
 getwd()
 Biomarker <- read.csv("tt_3634_IVD_Measurement_alldata_hic.csv")
 
 # read the ROCHE biomarkers
-setwd("P:/Project 3634/Biomarkers/Link-6859/Data hic formatted")
+setwd("D:/Project-3634/Biomarkers/Link-6859/Data hic formatted")
 getwd()
 RocheBiomarker <- read.csv("tt_3634_Results_data2.csv")
 #change the following column from factor to numeric
@@ -49,105 +49,105 @@ RocheBiomarker[,11] <-  as.double(as.character(RocheBiomarker[,11]))
 RocheBiomarker[,12] <-  as.double(as.character(RocheBiomarker[,12]))  
 RocheBiomarker[,13] <-  as.double(as.character(RocheBiomarker[,13]))  
 # read barcodetoprochi
-setwd("P:/Project 3634/Biomarkers/tt_3634_HIC_CombinedList")
+setwd("D:/Project-3634/Biomarkers/tt_3634_HIC_CombinedList")
 getwd()
 BarcodetoProchi <- read.csv("3634_Barcode_mapping.csv")
 # read the clinical data
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Biochemistry (Lab Data Restructured)")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Biochemistry (Lab Data Restructured)")
 getwd()
 Lab <- read.csv("Labs_Biochem.csv")
 
 # read the death 
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Deaths - CHI")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Deaths - CHI")
 getwd()
 Death <- read.csv("Deaths_CHI.csv")
 
 # read the death NRS
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Deaths GRO - NRS")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Deaths GRO - NRS")
 getwd()
 DeathCAUSE <- read.csv("Deaths_NRS.csv")
 
 # read the demography
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Demography")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Demography")
 getwd()
 Demography <- read.csv("Demography_Current.csv")
 
 # read the diabetes BMI
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Diabetes - BMI")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Diabetes - BMI")
 getwd()
 DiabetesBMI <- read.csv("Diabetes_BMI.csv")
 
 # read the diabetes BP
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Diabetes - BP")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Diabetes - BP")
 getwd()
 DiabetesBP <- read.csv("Diabetes_BP.csv")
 
 # read the Diabetes - Extended Summary
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Diabetes - Extended Summary")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Diabetes - Extended Summary")
 getwd()
 Diabetes_Ext_Sum <- read.csv("Diabetes_Ext_Sum.csv")
 
 
 # read the Echo - Tayside From Nov 2014
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Echo - Tayside From Nov 2014")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Echo - Tayside From Nov 2014")
 getwd()
 Echo_TaysideFrom2014 <- read.csv("Echo_TaysideFrom2014.csv")
 
 # read the Echo - Tayside From Nov 2013
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Echo - Tayside to March 2013")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Echo - Tayside to March 2013")
 getwd()
 Echo_TaysideTo2013 <- read.csv("Echo_TaysideTo2013.csv")
 
 # read the haematology data
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Haematology (Lab Data Restructured)")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Haematology (Lab Data Restructured)")
 getwd()
 haematologydata <- read.csv("HaematologyRestructured.csv")
 
 # read the prescribing
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Prescribing")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Prescribing")
 getwd()
 prescribing<- read.csv("prescribing.csv")
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/Prescribing/SupportingDataTables")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/Prescribing/SupportingDataTables")
 prescription_items<- read.csv("prescription items.csv")
 # need to morge this two to have the fill records
 
 # read the hospital admission
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/SMR01 - Hospital Admissions")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/SMR01 - Hospital Admissions")
 getwd()
 hospital_admission<- read.csv("SMR01_Admissions.csv")
 
 # read the Cancer Register
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/SMR06 - Cancer Register")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/SMR06 - Cancer Register")
 getwd()
 Cancer_Register<- read.csv("SMR06_CancerRegister.csv")
 
 # read the HF_latest_Diagnosis
-setwd("P:/Project 3634/Extr_23159-Samples Clinical Data/tt_3684_HIC_HF_latest_Diagnosis_3634")
+setwd("D:/Project-3634/Extr_23159-Samples Clinical Data/tt_3684_HIC_HF_latest_Diagnosis_3634")
 getwd()
 HF_latest_Diagnosis<- read.csv("HF_latest_Diagnosis.csv")
 
 # read the Final Cohort_Summary
-#setwd("P:/Project 3634/Release 5_Extr_23098/Project3634_Final Cohort_Summary")
+#setwd("D:/Project-3634/Release 5_Extr_23098/Project3634_Final Cohort_Summary")
 #getwd()
 #FinalCohort_Summary<- read.csv("Project3634_Final Cohort_Summary_v1.csv")
 
 # read the Final_Cohort_Detail
-#setwd("P:/Project 3634/Release 5_Extr_23098/Project3634_Final_Cohort_Detail")
+#setwd("D:/Project-3634/Release 5_Extr_23098/Project3634_Final_Cohort_Detail")
 #getwd()
 #Final_Cohort_Detail<- read.csv("Project3634_Final_Cohort_Detail.csv")
 
 # read the new Final_Cohort_Detail
-setwd("P:/Project 3634/Extr_23175")
+setwd("D:/Project-3634/Extr_23175")
 getwd()
 Final_Cohort_Summary<- read.csv("Cohort_Summary_Revised.csv")
 
 # read the mapping biomarker barcode to prochi to sampledate
-setwd("P:/Project 3634/Extr_23175/tt_3634_HIC_CombinedList_with_Date")
+setwd("D:/Project-3634/Extr_23175/tt_3634_HIC_CombinedList_with_Date")
 getwd()
 Mapping_Plasma_Sample<- read.csv("Mapping_Plasma_Sample.csv")
 
 # read the Project3634_Mon_Echo_screening
-setwd("P:/Project 3634/Extr_23175/Project3634_ALL_Echo_screening")
+setwd("D:/Project-3634/Extr_23175/Project3634_ALL_Echo_screening")
 getwd()
 Project3634_Mon_Echo_screening<- read.csv("Project3634_Mon_Echo_screening.csv")
 
@@ -179,7 +179,7 @@ EchoResult1$EchoDate <- as.Date(as.character(EchoResult1$EchoDate),format="%d/%m
 EchoResult1 <- unique(EchoResult1)
 
 # loading the second 
-setwd("P:/Project 3634/R/EKOAI/For Mon and Chim")
+setwd("D:/Project-3634/R/EKOAI/For Mon and Chim")
 getwd()
 EchoResult2014<- read_excel("Echo_TaysideFrom2014_Selected-Mon.xlsx")
 EchoResult2013<- read_excel("Echo_TaysideTo2013_Selected-Mon.xlsx")
@@ -207,12 +207,12 @@ EchoResult2 <- EchoResult2[,c(1,2,8)]
 
 # inlcude Mon's diagnosis on 230 NA results
 # sample with both AI and Echo in the range but not able to produce a diagnosis
-setwd("P:/Project 3634/R/EKOAI/ProblemCase1")
+setwd("D:/Project-3634/R/EKOAI/ProblemCase1")
 t <- read.csv("PatientList230.csv")
 # build a dataframe to save the results
 p <- t[1,"PROCHI"]
 print(p)
-setwd("P:/Project 3634/R/EKOAI/ProblemCase1")
+setwd("D:/Project-3634/R/EKOAI/ProblemCase1")
 EKO2013 <- read_excel(paste0(p,".xlsx"),"EKO2013")
 EKO2014 <- read_excel(paste0(p,".xlsx"),"EKO2014")
 EKO2013 <- EKO2013[,c(1,2,dim(EKO2013)[2])]
@@ -224,7 +224,7 @@ e$savetime <- as.Date(as.character(e$savetime),format="%d/%m/%Y")
 E <- unique(e)
 for (p in t$PROCHI) {
   #print(p)
-  setwd("P:/Project 3634/R/EKOAI/ProblemCase1")
+  setwd("D:/Project-3634/R/EKOAI/ProblemCase1")
   EKO2013 <- read_excel(paste0(p,".xlsx"),"EKO2013")
   EKO2014 <- read_excel(paste0(p,".xlsx"),"EKO2014")
   EKO2013 <- EKO2013[,c(1,2,dim(EKO2013)[2])]
@@ -262,7 +262,7 @@ EchoResult <- unique(EchoResult)
 
 # 17/09/2021
 # include MOn's ToBeProvided 
-setwd("P:/Project 3634/R/EKOAI/EKOToBeProvided")
+setwd("D:/Project-3634/R/EKOAI/EKOToBeProvided")
 t <- read_excel("EKO2013ToBeProvided- Mon.xlsx")
 EKO2013ToBeProvided <- t[,c(2,3,dim(t)[2])]
 t <- read_excel("EKO2014ToBeProvided-Mon.xlsx")
@@ -278,7 +278,7 @@ EchoResult <- unique(EchoResult)
 
 # 22/09/2021
 # include MOn's ToBeProvided v2 
-setwd("P:/Project 3634/R/EKOAI/EKOToBeProvided")
+setwd("D:/Project-3634/R/EKOAI/EKOToBeProvided")
 t <- read_excel("EKO2014ToBeProvided21092021-Mon.xlsx")
 EKO2014ToBeProvided <- t[,c(2,3,dim(t)[2])]
 colnames(EKO2014ToBeProvided)[2] <- "EchoDate"
@@ -290,7 +290,7 @@ EchoResult <- unique(EchoResult)
 
 # 22/09/2021
 # include MOn's ToBeProvided v3
-setwd("P:/Project 3634/R/EKOAI/EKOToBeProvided")
+setwd("D:/Project-3634/R/EKOAI/EKOToBeProvided")
 t <- read_excel("EKO2013ToBeProvided22092021-MON.xlsx")
 EKO2013ToBeProvided <- t[,c(2,3,dim(t)[2])]
 t <- read_excel("EKO2014ToBeProvided22092021-MON.xlsx")
@@ -307,7 +307,7 @@ EchoResult <- unique(EchoResult)
 
 # 22/09/2021
 # include MOn's ToBeProvided v4 
-setwd("P:/Project 3634/R/EKOAI/EKOToBeProvided")
+setwd("D:/Project-3634/R/EKOAI/EKOToBeProvided")
 t <- read_excel("EKO2014ToBeProvided23092021-Mon.xlsx")
 EKO2014ToBeProvided <- t[,c(2,3,dim(t)[2])]
 colnames(EKO2014ToBeProvided)[2] <- "EchoDate"
@@ -333,7 +333,7 @@ EchoResult[EchoResult$PROCHI %in% ControlPatient$PROCHI, "Diagnosis"] <- "Contro
 EchoResult <- unique(EchoResult)
 
 # 17/02/2022 update on 75 patients
-setwd("P:/Project 3634/R/EKOAI/For Mon")
+setwd("D:/Project-3634/R/EKOAI/For Mon")
 getwd()
 t <- read_xlsx("BaselineCohortforLVEFcheck10022022-Mon-LVEF4-Mon-50.xlsx")
 
@@ -345,7 +345,7 @@ for (i in 1:dim(t)[1]){
 }
 
 # 17/02/2022 further updates
-setwd("P:/Project 3634/R/EKOAI/For Mon")
+setwd("D:/Project-3634/R/EKOAI/For Mon")
 getwd()
 t <- read.csv("BaselineCohortforLVEFcheck10022022-Mon-LVEF4-Mon-50-v2.csv")
 
@@ -360,7 +360,7 @@ for (i in 1:dim(t)[1]){
 ###
 ### EchoResult contains all the EKO and its up to date results provided by Mon
 ###
-load("P:/Project 3634/R/EKOAI/EchoResult.RData")
+load("D:/Project-3634/R/EKOAI/EchoResult.RData")
 
 # 25/08/2021 
 ######################################
@@ -514,14 +514,14 @@ PairedWithInTimeSelected$NextEchoDate <- PairedWithInTimeSelected$EchoDate
 #### Final Diagnosis update ##########
 ######################################
 # Final Diagnosis update
-setwd("P:/Project 3634/R/EKOAI/For Mon")
+setwd("D:/Project-3634/R/EKOAI/For Mon")
 getwd()
 t <- read_xlsx("BaselineCohortforLVEFcheck10022022-Mon-Chim.xlsx")
 t <- t[,c(2:14)]
 colnames(t)[12] <- "Group"
 t <- t[t$Group!=4,]
 t <- t[,c(1:11,13)]
-setwd("P:/Project 3634/R/EKOAI/For Mon")
+setwd("D:/Project-3634/R/EKOAI/For Mon")
 getwd()
 tt <- read_xlsx("BaselineCohortforLVEFcheck10022022-Mon-LVEF4-Mon-Chim.xlsx")
 tt <- tt[,c(2:9,11:13,19)]

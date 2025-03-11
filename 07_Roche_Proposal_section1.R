@@ -1,16 +1,16 @@
 # 30/11/2021
-install.packages("graphics", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("Matrix", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("glmnet", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("pROC", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("caret", repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("e1071",repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("AUC",repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("cutpointr",repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("aod",repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("survival",repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("survminer",repos=NULL, contriburl = "file:V:/R/3.6.2/")
-install.packages("dplyr",repos=NULL, contriburl = "file:V:/R/3.6.2/")
+install.packages("graphics")
+install.packages("Matrix")
+install.packages("glmnet")
+install.packages("pROC")
+install.packages("caret")
+install.packages("e1071")
+install.packages("AUC")
+install.packages("cutpointr")
+install.packages("aod")
+install.packages("survival")
+install.packages("survminer")
+install.packages("dplyr")
 
 library(survival)
 library(survminer)
@@ -72,7 +72,7 @@ for (i in 1:3) {
     #TableResult[j,i+1] <- paste0(round(q[2],1)," [", round(sd(as.double(as.character(t[,CM[j]]))),1),"], ")
   }
 }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/11052023table1.3.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/06032025table1.3.csv")
 # Bimarker Wilcoxcon test
 CM <- c(colnames(Biomarker)[c(9,11,13)],colnames(RocheBiomarker)[c(8:13)])
 TableResult <- data.frame(CM)
@@ -102,7 +102,7 @@ TableResult$HFrEFvsHFpEF <- 0
       TableResult[j,"HFrEFvsHFpEF"] <- "<0.001"
     } else {TableResult[j,"HFrEFvsHFpEF"] <- round(p,3)}
   }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/11052023table1.3p.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/06032025table1.3p.csv")
 #####################################################
 ##################### table 1.4  ####################
 #####################################################
@@ -163,7 +163,7 @@ for (i in 1:3) {
     #TableResult[j-1,i+1] <- paste0(A,"; (",round(CI[1],2),"-",round(CI[3],2),"); ",cp_optimal,"; ",round(ppvnpv$ppv,2),"; ",round(ppvnpv$npv,2),"; ",round(ppvnpv$specificity,2),"; ",round(ppvnpv$sensitivity,2))
   }
 }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/11052023table1.4withspecandsens.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/06032025table1.4withspecandsens.csv")
 
 
 #####################################################
@@ -252,33 +252,43 @@ for (i in 1:3) {
   }
   
 }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/11052023table1.5.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/06032025table1.5.csv")
 
-# 11052023
-#####################################################
-######## ESC guideline with biomarker  ##############
-#####################################################
-# source("08_ESC.R") 
+
 
 #####################################################
 ############# table 1.6 and 1.7  ####################
 #####################################################
-setwd("P:/Project 3634/Dundee (2)")
+
+##################### US2AI  ####################
+setwd("D:/Project-3634/Dundee (2)")
 getwd()
 EKOImageData <- read.csv("MeasurementsDundeeJan3-v3.csv")
 ### 03032023 data update ##########
-setwd("P:/Project 3634/USAI-50")
+setwd("D:/Project-3634/USAI-50")
 getwd()
 EKOImageData_03032023 <- read.csv("Dundee-2023-02-15-v3 - strain.csv")
 EKOImageData <- EKOImageData[,!colnames(EKOImageData) %in% colnames(EKOImageData_03032023)[7:10]]
 EKOImageData <- merge(EKOImageData, EKOImageData_03032023[,c(1,6:10)], by=c("PatientID","Visit"))
+EKOImageData <- EKOImageData[, -which(names(EKOImageData) %in% c("velocity..1001."))]
 # add EKOImageData
 EKOImageData_Selected <- EKOImageData
-colnames(EKOImageData_Selected)[1] <- "PROCHI"
-EKOImageData_Selected <- merge(EKOImageData_Selected, BaselineCohort[,c("PROCHI","US2AIDate")], by =c("PROCHI") )
-EKOImageData_Selected$Time_Diff <- as.Date(as.character(EKOImageData_Selected$ExamDate),format="%Y-%m-%d")-as.Date(as.character(EKOImageData_Selected$US2AIDate),format="%Y-%m-%d")
+#colnames(EKOImageData_Selected)[1] <- "PROCHI"
+#EKOImageData_Selected <- merge(EKOImageData_Selected, BaselineCohort[,c("PROCHI","US2AIDate")], by =c("PROCHI") )
+EKOImageData_Selected$Time_Diff <- as.Date(as.character(EKOImageData_Selected$ExamDate),format="%Y-%m-%d")-as.Date(as.character(EKOImageData_Selected$US2AIDate),format="%d/%m/%Y")
 EKOImageData_Selected <- EKOImageData_Selected[EKOImageData_Selected$Time_Diff==0,]
-BaselineCohort <- merge(BaselineCohort, EKOImageData_Selected[,c(1,3:(dim(EKOImageData_Selected)[2]-2))], by = c("PROCHI"), all.x = TRUE)
+EKOImageData_Selected <- EKOImageData_Selected[,c(3,7:(dim(EKOImageData_Selected)[2]-1))]
+#BaselineCohort <- merge(BaselineCohort, EKOImageData_Selected[,c(3,7:(dim(EKOImageData_Selected)[2]-1))], by = c("PROCHI"), all.x = TRUE)
+
+#07032025
+##### merge US2AI with training and testing data ###
+train_ControlHFpEF <- merge(train_ControlHFpEF, EKOImageData_Selected, by = c("PROCHI"), all.x = TRUE) 
+train_ControlHFrEF <- merge(train_ControlHFrEF, EKOImageData_Selected, by = c("PROCHI"), all.x = TRUE) 
+train_HFpEFHFrEF <- merge(train_HFpEFHFrEF, EKOImageData_Selected, by = c("PROCHI"), all.x = TRUE) 
+test_ControlHFpEF <- merge(test_ControlHFpEF, EKOImageData_Selected, by = c("PROCHI"), all.x = TRUE) 
+test_ControlHFrEF <- merge(test_ControlHFrEF, EKOImageData_Selected, by = c("PROCHI"), all.x = TRUE) 
+test_HFpEFHFrEF <- merge(test_HFpEFHFrEF, EKOImageData_Selected, by = c("PROCHI"), all.x = TRUE) 
+
 
 # table Summary for US2AI only #####
 n <- c("HFrEF", "HFpEF", "Control")
@@ -289,20 +299,21 @@ TableResult$ControlHFpEF <- 0
 TableResult$ControlHFrEF <- 0
 TableResult$HFrEFHFpEF <- 0
 for (i in 1:3) {
-  
+  print(i)
   # rename
   if (n[i]=="HFrEF"){
-    train <- train_ControlHFpEF[,c("FinalDiagnosis",colnames(EKOImageData)[4:dim(EKOImageData)[2]])]
-    test <- test_ControlHFpEF[,c("FinalDiagnosis",colnames(EKOImageData)[4:dim(EKOImageData)[2]])]
+    train <- train_ControlHFpEF[,c("FinalDiagnosis",colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+    test <- test_ControlHFpEF[,c("FinalDiagnosis",colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
   } else if (n[i]=="HFpEF") {
-    train <- train_ControlHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[4:dim(EKOImageData)[2]])]
-    test <- test_ControlHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[4:dim(EKOImageData)[2]])]
+    train <- train_ControlHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+    test <- test_ControlHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
   } else {
-    train <- train_HFpEFHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[4:dim(EKOImageData)[2]])]
-    test <- test_HFpEFHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[4:dim(EKOImageData)[2]])]
+    train <- train_HFpEFHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+    test <- test_HFpEFHFrEF[,c("FinalDiagnosis",colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
   }
   train_sparse = makeX(train[,c(2:dim(train)[2])], na.impute = TRUE)
   test_sparse = makeX(test[,c(2:dim(train)[2])], na.impute = TRUE)
+  rm
   cv.glmmod = cv.glmnet(x=train_sparse, y=as.factor(train[,1]), alpha=1, family="binomial",type.measure = "auc",keep = TRUE)
   coefs = as.matrix(coef(cv.glmmod)) # convert to a matrix (618 by 1)
   ix = which(abs(coefs[,1]) > 0)
@@ -326,11 +337,116 @@ for (i in 1:3) {
     SF_HFpEFHFrEF <- SF
   }
 }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/table1.6.0.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/07032025table1.6.0_US2AI.csv")
+write.csv(SF_ControlHFpEF, "D:/Project-3634/R/EKOAI/07032025SF_ControlHFpEF_US2AI.csv")
+write.csv(SF_ControlHFrEF, "D:/Project-3634/R/EKOAI/07032025SF_ControlHFrEF_US2AI.csv")
+write.csv(SF_HFpEFHFrEF, "D:/Project-3634/R/EKOAI/07032025SF_HFpEFHFrEF_US2AI.csv")
 
-write.csv(SF_ControlHFpEF, "P:/Project 3634/R/EKOAI/SF_ControlHFpEF.csv")
-write.csv(SF_ControlHFrEF, "P:/Project 3634/R/EKOAI/SF_ControlHFrEF.csv")
-write.csv(SF_HFpEFHFrEF, "P:/Project 3634/R/EKOAI/SF_HFpEFHFrEF.csv")
+#07032025
+# table Summary for biomarker only #####
+n <- c("HFrEF", "HFpEF", "Control")
+rowName <- "Biomarker"
+TableResult <- data.frame(rowName)
+colnames(TableResult)[1] <- "Features"
+TableResult$ControlHFpEF <- 0
+TableResult$ControlHFrEF <- 0
+TableResult$HFrEFHFpEF <- 0
+for (i in 1:3) {
+  print(i)
+  # rename
+  if (n[i]=="HFrEF"){
+    train <- train_ControlHFpEF[,c("FinalDiagnosis",CM)]
+    test <- test_ControlHFpEF[,c("FinalDiagnosis",CM)]
+  } else if (n[i]=="HFpEF") {
+    train <- train_ControlHFrEF[,c("FinalDiagnosis",CM)]
+    test <- test_ControlHFrEF[,c("FinalDiagnosis",CM)]
+  } else {
+    train <- train_HFpEFHFrEF[,c("FinalDiagnosis",CM)]
+    test <- test_HFpEFHFrEF[,c("FinalDiagnosis",CM)]
+  }
+  train_sparse = makeX(train[,c(2:dim(train)[2])], na.impute = TRUE)
+  test_sparse = makeX(test[,c(2:dim(train)[2])], na.impute = TRUE)
+  rm
+  cv.glmmod = cv.glmnet(x=train_sparse, y=as.factor(train[,1]), alpha=1, family="binomial",type.measure = "auc",keep = TRUE)
+  coefs = as.matrix(coef(cv.glmmod)) # convert to a matrix (618 by 1)
+  ix = which(abs(coefs[,1]) > 0)
+  length(ix)
+  SF <- coefs[ix,1, drop=FALSE]
+  print(SF)
+  #write.table(SF,file = "US2AI and Biomarker Selected Feature.txt")
+  test$predict <- predict(cv.glmmod,newx=test_sparse,type='response')[,1]
+  ROC_curve <- pROC::roc(factor(test$FinalDiagnosis),test$predict)
+  A <- round(pROC::auc(ROC_curve),2)
+  CI <- ci.auc(ROC_curve)
+  cp <- cutpointr(test$predict,test$FinalDiagnosis,method = maximize_metric, metric = sum_sens_spec, na.rm = TRUE)
+  ppvnpv <- coords(ROC_curve,cp$optimal_cutpoint,"threshold",ret = c("ppv","npv"))
+  TableResult[1,i+1] <- paste0(A,"; (",round(CI[1],2),"-",round(CI[3],2),"); ",round(ppvnpv$ppv,2),"; ",round(ppvnpv$npv,2))
+  # rename
+  if (n[i]=="HFrEF"){
+    SF_ControlHFpEF <- SF
+  } else if (n[i]=="HFpEF") {
+    SF_ControlHFrEF <- SF
+  } else {
+    SF_HFpEFHFrEF <- SF
+  }
+}
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/07032025table1.6.0_biomarker.csv")
+write.csv(SF_ControlHFpEF, "D:/Project-3634/R/EKOAI/07032025SF_ControlHFpEF_biomarker.csv")
+write.csv(SF_ControlHFrEF, "D:/Project-3634/R/EKOAI/07032025SF_ControlHFrEF_biomarker.csv")
+write.csv(SF_HFpEFHFrEF, "D:/Project-3634/R/EKOAI/07032025SF_HFpEFHFrEF_biomarker.csv")
+
+# table Summary for US2AI and Biomarkers #####
+n <- c("HFrEF", "HFpEF", "Control")
+rowName <- "US2AI&Biomarker"
+TableResult <- data.frame(rowName)
+colnames(TableResult)[1] <- "Features"
+TableResult$ControlHFpEF <- 0
+TableResult$ControlHFrEF <- 0
+TableResult$HFrEFHFpEF <- 0
+for (i in 1:3) {
+  print(i)
+  # rename
+  if (n[i]=="HFrEF"){
+    train <- train_ControlHFpEF[,c("FinalDiagnosis",CM, colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+    test <- test_ControlHFpEF[,c("FinalDiagnosis",CM, colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+  } else if (n[i]=="HFpEF") {
+    train <- train_ControlHFrEF[,c("FinalDiagnosis",CM, colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+    test <- test_ControlHFrEF[,c("FinalDiagnosis",CM, colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+  } else {
+    train <- train_HFpEFHFrEF[,c("FinalDiagnosis",CM, colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+    test <- test_HFpEFHFrEF[,c("FinalDiagnosis",CM, colnames(EKOImageData)[7:dim(EKOImageData)[2]])]
+  }
+  train_sparse = makeX(train[,c(2:dim(train)[2])], na.impute = TRUE)
+  test_sparse = makeX(test[,c(2:dim(train)[2])], na.impute = TRUE)
+  rm
+  cv.glmmod = cv.glmnet(x=train_sparse, y=as.factor(train[,1]), alpha=1, family="binomial",type.measure = "auc",keep = TRUE)
+  coefs = as.matrix(coef(cv.glmmod)) # convert to a matrix (618 by 1)
+  ix = which(abs(coefs[,1]) > 0)
+  length(ix)
+  SF <- coefs[ix,1, drop=FALSE]
+  print(SF)
+  #write.table(SF,file = "US2AI and Biomarker Selected Feature.txt")
+  test$predict <- predict(cv.glmmod,newx=test_sparse,type='response')[,1]
+  ROC_curve <- pROC::roc(factor(test$FinalDiagnosis),test$predict)
+  A <- round(pROC::auc(ROC_curve),2)
+  CI <- ci.auc(ROC_curve)
+  cp <- cutpointr(test$predict,test$FinalDiagnosis,method = maximize_metric, metric = sum_sens_spec, na.rm = TRUE)
+  ppvnpv <- coords(ROC_curve,cp$optimal_cutpoint,"threshold",ret = c("ppv","npv"))
+  TableResult[1,i+1] <- paste0(A,"; (",round(CI[1],2),"-",round(CI[3],2),"); ",round(ppvnpv$ppv,2),"; ",round(ppvnpv$npv,2))
+  # rename
+  if (n[i]=="HFrEF"){
+    SF_ControlHFpEF <- SF
+  } else if (n[i]=="HFpEF") {
+    SF_ControlHFrEF <- SF
+  } else {
+    SF_HFpEFHFrEF <- SF
+  }
+}
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/07032025table1.6.0_US2AI&Biomarker.csv")
+write.csv(SF_ControlHFpEF, "D:/Project-3634/R/EKOAI/07032025SF_ControlHFpEF_US2AI&Biomarker.csv")
+write.csv(SF_ControlHFrEF, "D:/Project-3634/R/EKOAI/07032025SF_ControlHFrEF_US2AI&Biomarker.csv")
+write.csv(SF_HFpEFHFrEF, "D:/Project-3634/R/EKOAI/07032025SF_HFpEFHFrEF_US2AI&Biomarker.csv")
+
 
 # table summry for US2AI with one Biomarker  #####
 n <- c("HFrEF", "HFpEF", "Control")
@@ -382,7 +498,7 @@ for (i in 1:3) {
     TableResult[j,i+1] <- paste0(A,"; (",round(CI[1],2),"-",round(CI[3],2),"); ",round(ppvnpv$ppv,2),"; ",round(ppvnpv$npv,2))
   }
 }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/table1.6.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/07032025table1.6.csv")
 
 # table summry for US2AI with two Biomarker  #####
 n <- c("HFrEF", "HFpEF", "Control")
@@ -441,6 +557,6 @@ for (i in 1:3) {
     TableResult[j,i+6] <- A
     }
 }
-write.csv(TableResult, "P:/Project 3634/R/EKOAI/table1.7.csv")
+write.csv(TableResult, "D:/Project-3634/R/EKOAI/07032025table1.7.csv")
 
 
